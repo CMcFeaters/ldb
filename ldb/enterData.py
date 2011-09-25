@@ -10,7 +10,7 @@ from sqlalchemy.exc import DBAPIError,OperationalError
 engine=create_engine('mysql+mysqldb://root:mys3qu3l@localhost/test0',echo=True)
 meta.bind = engine
 meta.create_all(engine)
-
+#GIT TEST
 #map
 
 '''mapper(User,user)
