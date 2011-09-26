@@ -1,27 +1,15 @@
 #this is used for entering data into our tables
 
 from tableSetup import user,workout,sets,metcon,exercise,meta
-#from tableSetup import User,Workout,Lifts,Sets,Metcon,Exercise,lifts
 from sqlalchemy.orm import mapper
 from sqlalchemy import create_engine
 from sqlalchemy.exc import DBAPIError,OperationalError
+from sqlalchemy.sql import and_,or_,not_
 
 #connect
 engine=create_engine('mysql+mysqldb://root:mys3qu3l@localhost/test0',echo=True)
 meta.bind = engine
-meta.create_all(engine)
-#GIT TEST
-#map
-
-'''mapper(User,user)
-mapper(Workout,workout)
-mapper(Lifts,lifts)
-mapper(Sets,sets)
-mapper(Metcon,metcon)
-mapper(Exercise,exercise)'''
-#enter
-
-#need ot handle the errors on an individual basis
+#meta.create_all(engine)
 
 def ePrint(statement,table):
     print 'There was an error executing the statement in table %s you sly dog'%table
@@ -36,7 +24,8 @@ def deleteEntry(table,whereClause):
         ePrint(statement,table)
         
     except:
-        print 'fuck: ',sys.exc_info()[0]
+        print 'fuck: '
+        raise
 
 def createEntry(table,data):
     #will create an entry in table using each item in data{}
@@ -48,5 +37,8 @@ def createEntry(table,data):
         ePrint(statement,table)
  
     except:
-        print 'fuck: ',sys.exc_info()[0]
+        print 'fuck:'
+        raise
 
+
+#deleteEntry(user,"or_(user.uid!='Charles',user.uid!='Jack')")
