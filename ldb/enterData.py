@@ -22,7 +22,7 @@ def deleteEntry(table,whereClause):
         print result
     except OperationalError as (statement):
         ePrint(statement,table)
-        
+    #need to handle integrity errors
     except:
         print 'fuck: '
         raise
@@ -35,10 +35,10 @@ def createEntry(table,data):
         
     except DBAPIError as (statement):
         ePrint(statement,table)
- 
+    #need to handle integrity errors
     except:
         print 'fuck:'
         raise
 
 
-#deleteEntry(user,"or_(user.uid!='Charles',user.uid!='Jack')")
+deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")

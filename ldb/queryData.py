@@ -11,10 +11,10 @@ engine=create_engine('mysql+mysqldb://root:mys3qu3l@localhost/test0',echo=True)
 
 
 def getCols(table):
-    '''returns the columns from table'''
+    '''returns the columns from table in array'''
     return table.c
 
-
-
-
-
+def selectData(tables,columnArray,whereClause):
+    '''returns an array of entries in table that match whereclause'''
+    s=select(tables,columnArray,whereClause)
+    #handle this properly!

@@ -14,7 +14,8 @@ def enterInterface():
     info=[]
     #get the table
     table=getTable()
-    
+
+    print 'Table %s has the following parameters: '%table    
     for col in table.c:
         if col.primary_key==False or str(table)=='user':
             info.append((col.name,raw_input('%s: '%col.name)))
@@ -27,6 +28,7 @@ def deleteInterface():
     info=[]
     table=getTable()
 
-    print 'Table %s has the following parameters: '%table
+    print 'Table %s has the following Entries: '%table
+    
 
 enterInterface()
