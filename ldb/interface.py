@@ -31,4 +31,4 @@ def deleteInterface():
     print 'Table %s has the following Entries: '%table
     
 
-enterInterface()
+#enterInterface()

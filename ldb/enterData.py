@@ -41,4 +41,4 @@ def createEntry(table,data):
         raise
 
 
-deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")
+#deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")
