@@ -30,7 +30,6 @@ def deleteEntry(table,whereClause):
 def createEntry(table,data):
     #will create an entry in table using each item in data{}
     try:
-        
         table.insert().execute(data)
         
     except DBAPIError as (statement):
