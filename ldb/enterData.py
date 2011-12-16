@@ -15,17 +15,7 @@ def ePrint(statement,table):
     print 'There was an error executing the statement in table %s you sly dog'%table
     print statement[0]	
 
-def deleteEntry(table,whereClause):
-    #will delete an entry in table, based off of whereClause
-    try:
-        result=engine.execute(table.delete().where(whereClause))
-        print result
-    except OperationalError as (statement):
-        ePrint(statement,table)
-    #need to handle integrity errors
-    except:
-        print 'fuck: '
-        raise
+
 
 def createEntry(table,data):
     #will create an entry in table using each item in data{}
@@ -38,6 +28,19 @@ def createEntry(table,data):
     except:
         print 'fuck:'
         raise
+    
+def enterInterface():
+    '''interface for entering data into a table'''
+    info=[]
+    #get the table
+    table=getTable()
 
+    print 'Table %s has the following parameters: '%table    
+    for col in table.c:
+        if col.primary_key==False or str(table)=='user':
+            info.append((col.name,raw_input('%s: '%col.name)))
+
+    data=dict(info)
+    createEntry(table,data)
 
 #deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")

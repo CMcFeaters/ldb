@@ -70,7 +70,13 @@ def displayArray(arr,searchMessage,multi):
         return searchArray
 
     
-
+def runSelect(what,where):
+    #executes a select statement with where clause
+    #only designed for basics right now
+    s=select(what,where)
+    results= engine.execute(s)
+    return results
+    
 def selectData():
     #returns an array of entries in table that match whereclause
     sArray=[]       #the array that will hold what we are searching for
@@ -103,4 +109,4 @@ def selectData():
         #    print thing,': ',row[thing]
     #handle this properly!
 
-selectData()
+#runSelect(meta.sorted_tables[0].c,None)

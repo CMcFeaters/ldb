@@ -1,4 +1,5 @@
-from enterData import deleteEntry,createEntry,engine,meta
+from enterData import engine,meta
+
 
 def getTable():
     #get the table
@@ -9,26 +10,21 @@ def getTable():
         choice=int(raw_input('What table would you like to edit: '))
     return meta.sorted_tables[choice]
 
-def enterInterface():
-    '''interface for entering data into a table'''
-    info=[]
-    #get the table
-    table=getTable()
 
-    print 'Table %s has the following parameters: '%table    
-    for col in table.c:
-        if col.primary_key==False or str(table)=='user':
-            info.append((col.name,raw_input('%s: '%col.name)))
+def choose(os,arr,es):
+    #a quick function to display our text menus
+    #takes in an array of text options returns a decimal representing the
+    #corresponding choice
+    choice=-1
+    #print arr
+    while range(1,len(arr)+1).count(choice)==0 and choice!='quit'.lower():
+        print os
+        for item in arr:
+            print '%s) %s'%(arr.index(item)+1,item)
+        choice=raw_input(es)
+        if choice.isdigit():
+            choice=int(choice)
+    return choice
 
-    data=dict(info)
-    createEntry(table,data)
+#enterInterface()
 
-def deleteInterface():
-    '''interface for delete data from a table'''
-    info=[]
-    table=getTable()
-
-    print 'Table %s has the following Entries: '%table
-    
-
-enterInterface()
