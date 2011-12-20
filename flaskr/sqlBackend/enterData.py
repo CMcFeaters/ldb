@@ -7,7 +7,7 @@ from sqlalchemy.exc import DBAPIError,OperationalError
 from sqlalchemy.sql import and_,or_,not_
 
 #connect
-engine=create_engine('mysql+mysqldb://root:mys3qu3l@localhost/test0',echo=True)
+engine=create_engine('sqlite:////Users/Charles/ldb/flaskr/test0.db',echo=True)
 meta.bind = engine
 #meta.create_all(engine)
 
@@ -15,7 +15,14 @@ def ePrint(statement,table):
     print 'There was an error executing the statement in table %s you sly dog'%table
     print statement[0]	
 
-
+def getTable():
+    #get the table
+    choice=-1
+    for item in meta.sorted_tables:
+        print "%s) %s"%(meta.sorted_tables.index(item),item)
+    while range(0,len(meta.sorted_tables)).count(choice)==0:
+        choice=int(raw_input('What table would you like to edit: '))
+    return meta.sorted_tables[choice]
 
 def createEntry(table,data):
     #will create an entry in table using each item in data{}
@@ -43,4 +50,5 @@ def enterInterface():
     data=dict(info)
     createEntry(table,data)
 
+enterInterface()
 #deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")

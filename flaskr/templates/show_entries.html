@@ -1,19 +1,19 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %}	
 {% block body %}
-  {% if session.logged_in %}
-    <form action="{{ url_for('add_entry') }}" method=post class=add-entry>
+  {% if session.logged_in %}<!-- block is executed if you're logged in-->
+    <form action="{{ url_for('add_entry') }}" method=post class=add-entry><!-- -->
       <dl>
         <dt>Title:
-        <dd><input type=text size=30 name=title>
+        <dd><input type=text size=30 name=title><!-- title input block-->
         <dt>Text:
-        <dd><textarea name=text rows=5 cols=40></textarea>
-        <dd><input type=submit value=Share>
+        <dd><textarea name=text rows=5 cols=40></textarea><!-- text input block-->
+        <dd><input type=submit value=Share><!-- this is the button-->
       </dl>
     </form>
   {% endif %}
-  <ul class=entries>
-  {% for entry in entries %}
-    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}
+  <ul class=entries><!-- ul is an unordered list, entries is sent in from the python file-->
+  {% for entry in entries %}<!-- this is reading the entries made in entries-->
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}<!--these are part of the entry class, which is read from the db -->
   {% else %}
     <li><em>Unbelievable.  No entries here so far</em>
   {% endfor %}

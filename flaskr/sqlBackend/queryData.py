@@ -6,13 +6,8 @@ from sqlalchemy.sql import select
 from sqlalchemy import create_engine, text
 
 #connect
-engine=create_engine('mysql+mysqldb://root:mys3qu3l@localhost/test0',echo=True)
-#meta.bind(engine)
-
-
-def getCols(table):
-    ###returns the columns from table in array
-    return table.columns
+engine=create_engine('sqlite:////Users/Charles/ldb/flaskr/test0.db',echo=True)
+meta.bind=engine
 
 def setWhereClause(tables,cols):
     ###sets the whereclause for a select, cols is an array of column between tables being searched for, tables contains the tables being
@@ -70,43 +65,20 @@ def displayArray(arr,searchMessage,multi):
         return searchArray
 
     
-def runSelect(what,where):
+def runSelectws(what,where):#wherec,wheres):
     #executes a select statement with where clause
-    #only designed for basics right now
-    s=select(what,where)
+    #what is an array of strings for the columns being returned form: table.col
+    #where is a wherestatement string
+    carr=[]
+    warr=[]
+    for item in what:
+        r=item.split('.')
+        carr.append(meta.tables[r[0]].c[r[1]])
+    s=select(carr,where)
     results= engine.execute(s)
-    return results
     
-def selectData():
-    #returns an array of entries in table that match whereclause
-    sArray=[]       #the array that will hold what we are searching for
-    tempArray=[]    # a temporary array holding all column headers in all of our tables
-    wheres=[]       #holds the where clause
-    #tables=displayArray(meta.sorted_tables,"Pick a table to add to the array(0 to complete)",True) #tables holds all tables being searched
-    #[[tempArray.append(thing) for thing in item.c] for item in tables]
-    #x=displayArray(tempArray,'Pick items to add to the search list',True)
-    #[sArray.append(thing) for thing in x]
-    #rule=setWhereClause(tables,tempArray)
-    #s=select(sArray,rule)
-    tables=meta.sorted_tables[0]
-    x=tables.c['uid']
-    #rule=setWhereClause(tables,x)
-    #print x
-    #print rule
-    s=select(tables.c,'%s="Charles"'%x)
-    print s
-    print "++++++++"
-    #rule='tables.c["uid"]=="Charles"'
-    #s=select(tables.c)
-    #s=s.where(tables.c["uid"]=="Charles")
-    #print rule
-    #s=select(["user.uid, user.pw"],"user.uid='Charles'",from_obj=['user'])
-    #print s
-    result=engine.execute(s)
-    for row in result:
-        print row
-        #for thing in sArray:
-        #    print thing,': ',row[thing]
-    #handle this properly!
+    return results.fetchall()
 
-#runSelect(meta.sorted_tables[0].c,None)
+def search(what,where):
+    #search function, given what you want to search for a where result
+    pass
