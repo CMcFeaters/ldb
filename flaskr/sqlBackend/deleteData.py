@@ -1,4 +1,4 @@
-from queryData import runSelect
+from queryData import runSelectws
 from enterData import engine,meta
 from interface import getTable , choose
 

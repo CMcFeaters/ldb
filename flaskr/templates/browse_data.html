@@ -1,0 +1,20 @@
+<script type="text/javascript" src="{{url_for('static',filename='calendarDateInput.js')}}"></script>
+{% extends "layout.html" %}	
+{% block body %}
+  {% if session.logged_in %}<!-- block is executed if you're logged in-->
+    <div class="navinfo">
+	<a href="{{ url_for('enter_data')}}">Enter Data</a>
+	/
+	Browse Data
+	/
+	<a href="{{ url_for('search_data')}}">Search Data</a>
+	</div>
+   <ul class=entries><!-- ul is an unordered list, entries is sent in from the python file-->
+  {% for entry in entries %}<!-- this is reading the entries made in entries-->
+    <li><h2>{{ entry.title }}</h2>{{ entry.text|safe }}<!--these are part of the entry class, which is read from the db -->
+  {% else %}
+    <li><em></em>
+  {% endfor %}
+  </ul>
+  {% endif %}
+{% endblock %}

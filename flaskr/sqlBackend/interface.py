@@ -1,5 +1,5 @@
-from enterData import engine,meta
-
+from queryData import quickSearch
+from enterData import engine,meta, enterInterface
 
 def getTable():
     #get the table
@@ -26,5 +26,6 @@ def choose(os,arr,es):
             choice=int(choice)
     return choice
 
-#enterInterface()
+enterInterface()
+#quickSearch()
 

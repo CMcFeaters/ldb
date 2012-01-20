@@ -1,0 +1,56 @@
+<script type="text/javascript" src="{{url_for('static',filename='calendarDateInput.js')}}"></script>
+{% extends "layout.html" %}	
+{% block body %}
+  {% if session.logged_in %}
+    <!-- basic navigation info-->
+	<div class="navinfo">
+	Enter Data
+	/
+	<a href="{{ url_for('browse_data')}}">Browse Data</a>
+	/
+	<a href="{{ url_for('search_data')}}">Search Data</a>
+	</div>
+	
+	<!-- ********************************
+	entering the information
+	*************************************-->
+	{% if not session.exercise_set %}
+    	<form action="{{ url_for('enter_data') }}" method=post >
+    	First things first, when did you do this and how do you feel about it?
+          <dl>
+            <dt>Date: 
+    		<dd><script>DateInput('orderdate', true, 'YYYY-MM-DD')</script>
+    		<dt>Comments?
+            <dd><textarea name=wstatus rows=3 cols=40 ></textarea><!-- text input block-->
+            <dd><input type=submit value=Update><!-- this is the button-->
+          </dl>
+        </form>
+	{% elif not session.lift and not session.metcon %}
+	    <form action="{{ url_for('enter_data') }}" method=post >
+    	Let's add some work!
+		<br />
+		<input type='radio' name='wtype' value='lift'>Lift<br />
+		<input type='radio' name='wtype' value='metcon'>Metcon<br />
+		<input type=submit value='GO'>
+        </form>
+	{% elif session.lift %}
+	   	<form action="{{ url_for('enter_data')}}">
+		LIFT!
+		<button name='reset' type='submit' value='Back'>Reset</button>
+		</form>		
+	{% elif session.metcon %}
+	   	<form action="{{ url_for('enter_data')}}">
+		METCON!
+		<button name='reset' type='submit' value='clear_all'>Reset</button>
+		</form>			
+	{% endif %}
+	
+	<!-- *******************************
+	This is where the workout description will sit
+	*************************************-->
+	
+	
+	
+	
+  {% endif %}
+{% endblock %}

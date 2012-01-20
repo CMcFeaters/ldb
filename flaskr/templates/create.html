@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% block body %}
+  <h2>Create An Account</h2>
+  {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+  <form action="{{ url_for('create') }}" method=post>
+    <dl>
+      <dt>Username:
+      <dd><input tabindex="1" type=text name=username>
+      <dt>Password:  
+	  <sml>Make it at least 12 characters and no spaces, just keep <a href="http://www.xkcd.com/936" target="_blank">this</a> and
+	  <a href="http://en.wikipedia.org/wiki/Password_strength#Guidelines_for_strong_passwords" target="blank">this</a> in mind</sml>
+      <dd><input tabindex="2" type=password name=password>
+      <dd><input tabindex="3" type=submit value=Create>
+	  <br>
+    </dl>
+  </form>
+{% endblock %}

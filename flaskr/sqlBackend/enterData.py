@@ -5,6 +5,7 @@ from sqlalchemy.orm import mapper
 from sqlalchemy import create_engine
 from sqlalchemy.exc import DBAPIError,OperationalError
 from sqlalchemy.sql import and_,or_,not_
+from datetime import date
 
 #connect
 engine=create_engine('sqlite:////Users/Charles/ldb/flaskr/test0.db',echo=True)
@@ -33,22 +34,26 @@ def createEntry(table,data):
         ePrint(statement,table)
     #need to handle integrity errors
     except:
-        print 'fuck:'
+        print 'fuck An Error!'
         raise
-    
+
 def enterInterface():
     '''interface for entering data into a table'''
     info=[]
     #get the table
     table=getTable()
-
+    
     print 'Table %s has the following parameters: '%table    
     for col in table.c:
         if col.primary_key==False or str(table)=='user':
-            info.append((col.name,raw_input('%s: '%col.name)))
+            print col.type
+            if str(col.type)=="DATE":
+                print "Date, using today's until we figure out data validation"
+                info.append((col.name,date.today()))
+            else:
+                info.append((col.name,raw_input('%s: '%col.name)))
 
     data=dict(info)
     createEntry(table,data)
 
-enterInterface()
 #deleteEntry(user,"user.uid!='Charles' or user.uid!='Jack'")

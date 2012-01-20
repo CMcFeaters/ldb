@@ -1,0 +1,12 @@
+{% extends "layout.html" %}	
+{% block body %}
+  {% if session.logged_in %}<!-- block is executed if you're logged in-->
+    <div class="navinfo">
+	<a href="{{ url_for('enter_data') }}">Enter Data</a>
+	/
+	<a href="{{ url_for('browse_data')}}">Browse Data</a>
+	/
+	<a href="{{ url_for('search_data')}}">Search Data</a>
+	</div>
+  {% endif %}
+{% endblock %}

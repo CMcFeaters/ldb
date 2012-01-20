@@ -4,13 +4,13 @@ from sqlalchemy import create_engine,Table,Column,Integer,String,ForeignKey,Date
 meta=MetaData()
 
 class User(object):
-    def __init__(self,uid,pw):
+    def __init__(self,uid,name,pw):
         self.uid=uid
+        self.name=name
         self.pw=pw
 
 class Workout(object):
-    def __init__(self,wtime,wdate,wstatus):
-        self.wtime=wtime
+    def __init__(self,wdate,wstatus):
         self.wdate=wdate
         self.wstatus=wstatus
 
@@ -39,13 +39,13 @@ class Exercise(object):
 
 user=Table('user',meta,
            Column('uid',String(20),primary_key=True),
+           Column('name',String(20)),
            Column('pw',String(20))
            )
 
 workout=Table('workout',meta,
               Column('wid',Integer,primary_key=True),
               Column('uid',String(20),ForeignKey('user.uid')),
-              Column('wtime',Time),
               Column('wdate',Date),
               Column('wstatus',String(51)),
               )

@@ -1,12 +1,16 @@
 <!doctype html>
-<title>Flaskr</title>
+<title>Lift Database</title>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+
 <div class=page>
-  <h1>Flaskr</h1>
-  <div class=metanav>
+  <h1>Clever Title</h1>
+  <div class=logreg>
   {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}">log in</a>
+     	 <a href="{{ url_for('login') }}">Log in</a> 
+		 / 
+		 <a href="{{ url_for('create') }}">create</a> 
   {% else %}
+  	 Welcome 
     <a href="{{ url_for('logout') }}">log out</a>
   {% endif %}
   </div>

@@ -72,7 +72,7 @@ def runSelectws(what,where):#wherec,wheres):
     carr=[]
     warr=[]
     for item in what:
-        r=item.split('.')
+        r=str(item).split('.')
         carr.append(meta.tables[r[0]].c[r[1]])
     s=select(carr,where)
     results= engine.execute(s)
@@ -80,5 +80,13 @@ def runSelectws(what,where):#wherec,wheres):
     return results.fetchall()
 
 def search(what,where):
-    #search function, given what you want to search for a where result
+    #search function, given what you want to search for and a where result
     pass
+
+def quickSearch():
+    #displays all entries in a table selected by
+    tbl= list(meta.tables)
+    arr=displayArray(tbl,'Pick your table',False)
+    print runSelectws(meta.tables[arr[0]].c,'')
+    
+
