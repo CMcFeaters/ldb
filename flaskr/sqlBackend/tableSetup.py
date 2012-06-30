@@ -1,7 +1,11 @@
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy import create_engine,Table,Column,Integer,String,ForeignKey,Date,Time, MetaData
 
-meta=MetaData()
+'''all that happens in this function is we define our table objects, assign them to our metadata object and
+create the classes that represent our tables.'''
+
+meta=MetaData() '''meta will hold our metadata, metadata is a collection of table objects
+                is an instance of a metadata object'''
 
 class User(object):
     def __init__(self,uid,name,pw):
@@ -24,24 +28,12 @@ class Sets(object):
         self.reps=reps
         self.weight=weight
 
-class Metcon(object):
-    def __init__(self,rounds,mTime,mScore):
-        self.rounds=rounds
-        self.mTime=mTime
-        self.mScore=mScore
-
-class Exercise(object):
-    def __init__(self,movement,weight,distance,reps):
-        self.movement=movement
-        self.distance=distance
-        self.weight=weight
-        self.reps=reps
-
 user=Table('user',meta,
            Column('uid',String(20),primary_key=True),
            Column('name',String(20)),
            Column('pw',String(20))
            )
+'''user is a table object, this table has the properties/types shown above and is part of our metadata object meta'''
 
 workout=Table('workout',meta,
               Column('wid',Integer,primary_key=True),
@@ -63,19 +55,3 @@ sets=Table('sets',meta,
           Column('reps',Integer),
           Column('weight',Integer))
 
-metcon=Table('metcon',meta,
-             Column('wid',Integer,ForeignKey('workout.wid')),
-             Column('mid',Integer,primary_key=True),
-             Column('rounds',Integer),
-             Column('mTime',Time),
-             Column('mScore',Integer)
-             )
-
-exercise=Table('exercise',meta,
-               Column('eid',Integer,primary_key=True),
-               Column('mid',Integer,ForeignKey('metcon.mid')),
-               Column('movement',String(20)),
-               Column('weight',Integer),
-               Column('distance',Integer),
-               Column('reps',Integer)
-               )

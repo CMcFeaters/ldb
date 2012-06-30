@@ -22,4 +22,8 @@ sml             {font-size:xx-small; color: #808080; vertical-align:middle; }
 .flash          { background: #CEE5F5; padding: 0.5em;
                   border: 1px solid #AACBE2; }
 .error          { background: #F0D6D6; padding: 0.5em; }
-.pwnote         {{text-align:right;font-size: smaller;}
+.pwnote         {text-align:right;font-size: smaller;}
+
+.setfield        {border: 0; color:#808080;}
+
+.workList        {border: 0; }

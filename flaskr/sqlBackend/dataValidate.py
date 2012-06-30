@@ -1,6 +1,6 @@
 #this is used for entering data into our tables
 #used for validating data entered from flaskr
-from tableSetup import user,workout,sets,metcon,exercise, meta
+from tableSetup import user,workout,sets, meta
 from sqlalchemy.orm import mapper
 from sqlalchemy.sql import select
 from sqlalchemy import create_engine, text

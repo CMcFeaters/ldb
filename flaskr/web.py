@@ -22,31 +22,7 @@ PASSWORD = 'default'
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config.from_envvar('FLASKR_SETTINGS',silent=True)
-'''
-def connect_db():
-    #this is where we would change into our connect code
-    #this appears to return a connection
-    return sqlite3.connect(app.config['DATABASE'])
 
-def init_db():
-    #creates database and/or connects to it
-    #we will need to change this code so that it executes ldb's db setup script instead
-    with closing(connectdb()) as db:
-        with app.open_resource('schema.sql') as f: #opens schema.sql file
-            db.cursor().executescript(f.read())
-        db.commit()
-
-@app.before_request
-def before_request():
-    #called before a request is made
-    g.db = connect_db()
-
-@app.teardown_request
-def teardown_request(exception):
-    #called after a request is made
-    if hasattr(g, 'db'):
-        g.db.close()
-'''    
 #apparently g is magical and does work behind scenes.  it also
 #holds information from one request and is available within each function
 
@@ -100,18 +76,6 @@ def login():
 @app.route('/enter_data', methods=['GET','POST'])
 def enter_data():
     error=None
-
-    if request.method=='POST':
-        if not session.get('exercise_set'):
-            session['exercise_set']=True
-        elif request.form['wtype']=='lift':
-            session['lift']=True
-        elif request.form['wtype']=='metcon':
-            session['metcon']=True
-    elif request.method=='GET':
-        session['exercise_set']=False
-        session['lift']=False
-        session['metcon']=False
     return render_template('enter_data.html',error=error)
 
 @app.route('/search_data', methods=['POST'])
@@ -124,7 +88,22 @@ def browse_data():
     error=None
     return render_template('browse_data.html',error=error)
 
-@app.route('/create', methods=['POST'])   #routes the registration info
+@app.route('/create_workout',methods=['POST'])
+def create_workout():
+    #this creates our workout data table, it does not write it to our database
+    status=request.form['wstatus']
+
+    yr=request.form['year']
+    mo=request.form['month']
+    dy=request.form['day']
+
+    if not yr.isdigit():
+        error= 'fuck'
+    
+    #wdict=dict([['wDate',date],['wStatus',status]])
+    return render_template('enter_data.html',error=error)
+
+@app.route('/create', methods=['POST','GET'])   #routes the registration info
 def create():
     error = None
     if request.method == 'POST':    #button pressed?
@@ -146,7 +125,7 @@ def create():
                 ['name',nam],
                 ['pw',pw]]))
             #this should point to some welcome screen
-            return redirect(url_for('show_entries'))
+            return redirect(url_for('welcome.html'))
     return render_template('create.html', error=error)
 
 @app.route('/logout')
